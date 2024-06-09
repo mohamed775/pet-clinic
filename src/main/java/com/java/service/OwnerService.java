@@ -1,16 +1,17 @@
 package com.java.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.java.model.owner.Owner;
 
 public interface OwnerService {
 
-	Owner findAllOwner();
+	List<Owner> findAllOwner();
 	
 	Owner findOwnerById(Integer id);
 	
-	List<Owner> findByLastName(String lastName);
+	Collection<Owner> findByLastName(String lastName);
 	
 	Owner addOwner(Owner owner);
 	
