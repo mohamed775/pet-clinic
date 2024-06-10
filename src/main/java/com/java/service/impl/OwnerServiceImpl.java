@@ -16,35 +16,35 @@ import com.java.service.OwnerService;
 @Service
 public class OwnerServiceImpl implements OwnerService {
 
+	
 	@Autowired
 	private OwnerRepo ownerRepo ;
 	
 	
-	@Cacheable
+	@Cacheable(cacheNames = "owner")
 	@Override
 	public List<Owner> findAllOwner() {
 		return ownerRepo.findAll();
 	}
 
-	@Cacheable
 	@Override
 	public Owner findOwnerById(Integer id) {
 		return ownerRepo.findById(id);
 	}
 
-	@Cacheable
+	@Cacheable(cacheNames = "owner")
 	@Override
 	public Collection<Owner> findByLastName(String lastName) {
 		return ownerRepo.findByLastName(lastName);
 	}
 
-	@CacheEvict(allEntries = true)
+	@CacheEvict(allEntries = true ,cacheNames = "owner")
 	@Override
 	public Owner addOwner(Owner owner) {
 		return ownerRepo.save(owner) ;
 	}
 
-	@CachePut
+	@CachePut(cacheNames = "owner")
 	@Override
 	public Owner updateOwner(long id, Owner owner) {
 		Owner owne  = ownerRepo.findById(id).orElse(null);
@@ -62,7 +62,7 @@ public class OwnerServiceImpl implements OwnerService {
 		return ownerRepo.save(owne) ;
 	}
 
-	@CacheEvict
+	@CacheEvict(cacheNames = "owner")
 	@Override
 	public void deleteOwner(Long id) {
 		ownerRepo.deleteById(id);

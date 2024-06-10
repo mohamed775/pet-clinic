@@ -9,7 +9,7 @@ public interface VetService {
 
     List<Vet> findAllVet();
 	
-    Vet findVetById(Integer id);
+    Vet findVetById(Long id);
 	
 	Vet addVet(Vet vet);
 	
