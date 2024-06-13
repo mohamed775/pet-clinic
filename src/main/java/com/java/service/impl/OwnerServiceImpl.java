@@ -56,7 +56,7 @@ public class OwnerServiceImpl implements OwnerService {
 		owne.setCity(owner.getCity());
 		owne.setAddress(owner.getAddress());
 		owne.setTelephone(owner.getTelephone());
-		owne.setPet(owner.getPet());
+		owne.setPets(owner.getPets());
 		
 
 		return ownerRepo.save(owne) ;
