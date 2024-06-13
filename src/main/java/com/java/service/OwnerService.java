@@ -9,7 +9,7 @@ public interface OwnerService {
 
 	List<Owner> findAllOwner();
 	
-	Owner findOwnerById(Integer id);
+	Owner findOwnerById(Long id);
 	
 	Collection<Owner> findByLastName(String lastName);
 	

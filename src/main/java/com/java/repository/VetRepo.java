@@ -14,7 +14,7 @@ import com.java.model.vet.Vet;
 public interface VetRepo extends JpaRepository<Vet, Long> {
 
 	@Transactional(readOnly = true)
-    @Cacheable("vets")
+    @Cacheable("vet")
     List<Vet> findAll() throws DataAccessException;
 	
 }

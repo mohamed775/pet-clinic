@@ -18,7 +18,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,15 +38,13 @@ public class Pet extends NamedEntity {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    @NotEmpty
     private PetType type;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "owner_id")
-    @NotEmpty
     private Owner owner;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "petId" , fetch = FetchType.EAGER)
     private Set<Visit> visits = new LinkedHashSet<>();
 	
 }

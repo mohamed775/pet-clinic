@@ -19,26 +19,26 @@ public class VetServiceImpl implements VetService {
 	private VetRepo  vetRepo ;
 	
 	
-	@Cacheable(cacheNames = "vets")
+	@Cacheable(cacheNames = "vet")
 	@Override
 	public List<Vet> findAllVet() {
 		return vetRepo.findAll();
 	}
 
-	@Cacheable(cacheNames = "vets")
+	@Cacheable(cacheNames = "vet")
 	@Override
 	public Vet findVetById(Long id) {
 		return vetRepo.findById(id).get();
 	}
 
 	
-	@CacheEvict(allEntries = true , cacheNames ="vets" )
+	@CacheEvict(allEntries = true , cacheNames ="vet" )
 	@Override
 	public Vet addVet(Vet vet) {
 		return vetRepo.save(vet);
 	}
 	
-	@CacheEvict(allEntries = true , cacheNames ="vets")
+	@CacheEvict(allEntries = true , cacheNames ="vet")
 	@Override
 	public Vet updateVet(long id, Vet vet) {
 		Vet vetData = vetRepo.findById(id).orElse(null);
@@ -53,7 +53,7 @@ public class VetServiceImpl implements VetService {
 	}
 
 	
-	@CacheEvict(allEntries = true ,cacheNames ="vets")
+	@CacheEvict(allEntries = true ,cacheNames ="vet")
 	@Override
 	public void deleteVet(Long id) {
 		vetRepo.deleteById(id);

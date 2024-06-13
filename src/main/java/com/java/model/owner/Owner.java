@@ -1,5 +1,7 @@
 package com.java.model.owner;
 
+
+
 import java.util.Set;
 
 import com.java.model.base.Person;
@@ -8,6 +10,7 @@ import com.java.model.pet.Pet;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
@@ -32,14 +35,14 @@ public class Owner extends Person {
     @Column(name = "city")
     @NotEmpty
     private String city;
-
+    
     @Column(name = "telephone")
     @NotEmpty
     @Digits(fraction = 0, integer = 10)
     private String telephone;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    private Set<Pet> pets;
+    @OneToMany(fetch = FetchType.LAZY  , cascade = CascadeType.ALL)
+    private Set<Pet> pet;
     
 	
 }

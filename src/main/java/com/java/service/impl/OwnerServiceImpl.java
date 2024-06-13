@@ -28,14 +28,14 @@ public class OwnerServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public Owner findOwnerById(Integer id) {
-		return ownerRepo.findById(id);
+	public Owner findOwnerById(Long id) {
+		return ownerRepo.findById(id).orElse(null);
 	}
 
 	@Cacheable(cacheNames = "owner")
 	@Override
 	public Collection<Owner> findByLastName(String lastName) {
-		return ownerRepo.findByLastName(lastName);
+		return ownerRepo.findByLastNameContaining(lastName);
 	}
 
 	@CacheEvict(allEntries = true ,cacheNames = "owner")
@@ -56,7 +56,7 @@ public class OwnerServiceImpl implements OwnerService {
 		owne.setCity(owner.getCity());
 		owne.setAddress(owner.getAddress());
 		owne.setTelephone(owner.getTelephone());
-		owne.setPets(owner.getPets());
+		owne.setPet(owner.getPet());
 		
 
 		return ownerRepo.save(owne) ;
