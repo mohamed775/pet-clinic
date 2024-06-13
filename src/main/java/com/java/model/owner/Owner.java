@@ -10,6 +10,7 @@ import com.java.model.pet.Pet;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
@@ -40,7 +41,7 @@ public class Owner extends Person {
     @Digits(fraction = 0, integer = 10)
     private String telephone;
 
-    @OneToMany( mappedBy = "owner"  ,  cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private Set<Pet> pets;
     
 	
