@@ -9,6 +9,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.java.exception.NotFoundException;
 import com.java.model.owner.Owner;
 import com.java.repository.OwnerRepo;
 import com.java.service.OwnerService;
@@ -29,13 +30,23 @@ public class OwnerServiceImpl implements OwnerService {
 
 	@Override
 	public Owner findOwnerById(Long id) {
-		return ownerRepo.findById(id).orElse(null);
+		
+		Owner owner = ownerRepo.findById(id).orElse(null);
+		if(owner == null) {
+			throw new NotFoundException("owner with id : "+ id + " not found");
+		}
+		return owner ;
 	}
 
 	@Cacheable(cacheNames = "owner")
 	@Override
 	public Collection<Owner> findByLastName(String lastName) {
-		return ownerRepo.findByLastNameContaining(lastName);
+		
+		Collection<Owner> owners = ownerRepo.findByLastNameContaining(lastName);
+		if(owners == null) {
+			throw new NotFoundException("No owner lastName is "+ lastName );
+		}
+		return owners ;
 	}
 
 	@CacheEvict(allEntries = true ,cacheNames = "owner")
@@ -49,7 +60,7 @@ public class OwnerServiceImpl implements OwnerService {
 	public Owner updateOwner(long id, Owner owner) {
 		Owner owne  = ownerRepo.findById(id).orElse(null);
 		if(owne==null) {
-			return null ;
+			throw new NotFoundException("owner with id : "+ id + " not found");
 		}
 		owne.setFirstName(owner.getFirstName());
 		owne.setLastName(owner.getLastName());
@@ -65,6 +76,10 @@ public class OwnerServiceImpl implements OwnerService {
 	@CacheEvict(cacheNames = "owner")
 	@Override
 	public void deleteOwner(Long id) {
+		Owner owner = ownerRepo.findById(id).orElse(null);
+		if(owner == null) {
+			throw new NotFoundException("owner with id : "+ id + " not found");
+		}
 		ownerRepo.deleteById(id);
 	}
 

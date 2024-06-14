@@ -1,6 +1,7 @@
 package com.java.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -8,6 +9,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.java.exception.NotFoundException;
 import com.java.model.visit.Visit;
 import com.java.repository.VisitRepo;
 import com.java.service.VisitService;
@@ -29,8 +31,11 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public Visit findVisitById(Long id) {
-		// TODO Auto-generated method stub
-		return visitRepo.findById(id).get();
+		Optional<Visit> visit =  visitRepo.findById(id);
+		if(!visit.isPresent()) {
+			throw new NotFoundException("visit with id : "+ id + " not found");
+		}
+		return visit.get();
 	}
 
 	@CacheEvict(allEntries = true ,cacheNames = "visit")
@@ -44,7 +49,7 @@ public class VisitServiceImpl implements VisitService {
 	public Visit updateVisit(long id, Visit visit) {
 		Visit visitData = visitRepo.findById(id).orElse(null);
 		if(visitData == null) {
-			return null;
+			throw new NotFoundException("visit with id : "+ id + " not found");
 		}
 		visitData.setPetId(visit.getPetId());
 		visitData.setDate(visit.getDate());
@@ -56,6 +61,10 @@ public class VisitServiceImpl implements VisitService {
 	@CacheEvict(allEntries = true , cacheNames = "visit")
 	@Override
 	public void deleteVisit(Long id) {
+		Optional<Visit> visit =  visitRepo.findById(id);
+		if(!visit.isPresent()) {
+			throw new NotFoundException("visit with id : "+ id + " not found");
+		}
 		visitRepo.deleteById(id);
 	}
 

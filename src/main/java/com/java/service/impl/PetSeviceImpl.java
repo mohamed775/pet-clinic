@@ -1,12 +1,14 @@
 package com.java.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.java.exception.NotFoundException;
 import com.java.model.pet.Pet;
 import com.java.model.pet.PetType;
 import com.java.repository.PetRepo;
@@ -26,7 +28,11 @@ public class PetSeviceImpl implements PetService {
 
 	@Override
 	public Pet findById(Integer id) {
-		return petRepo.findById(id);
+		Pet pet = petRepo.findById(id);
+		if(pet == null) {
+			throw new NotFoundException("pet with id : "+ id + " not found");
+		}
+		return pet ;
 	}
 
 	@Cacheable(cacheNames = "pet")
@@ -47,7 +53,7 @@ public class PetSeviceImpl implements PetService {
 	public Pet updatePet(Long id, Pet pet) {
 		Pet petData = petRepo.findById(id).orElse(null);
 		if (petData == null ) {
-			return null ;
+			throw new NotFoundException("pet with id : "+ id + " not found");
 		}
 		petData.setName(pet.getName());
 		petData.setOwner(pet.getOwner());
@@ -61,6 +67,10 @@ public class PetSeviceImpl implements PetService {
 	@CacheEvict(allEntries = true , cacheNames = "pet")
 	@Override
 	public void deletePet(Long id) {
+		Optional<Pet> pet = petRepo.findById(id);
+		if(!pet.isPresent()) {
+			throw new NotFoundException("pet with id : "+ id + " not found");
+		}
 		petRepo.deleteById(id);
 	}
 
