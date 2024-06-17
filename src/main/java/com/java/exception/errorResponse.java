@@ -13,7 +13,7 @@ import lombok.Setter;
 public class errorResponse {
 
 	private Boolean success;
-	private String message;
+//	private String message;
 	private LocalDateTime dateTime;
 	private List<String> details;
 
@@ -21,7 +21,7 @@ public class errorResponse {
 	// custom cons for two variable
 	public errorResponse(String message, List<String> details) {
 		super();
-		this.message = message;  // message
+//		this.message = message;  // message
 		this.details = details;  // details
 		this.success = Boolean.FALSE; // static 
 		this.dateTime = LocalDateTime.now(); // static 

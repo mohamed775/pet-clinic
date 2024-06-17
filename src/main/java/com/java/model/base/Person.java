@@ -13,12 +13,12 @@ public class Person extends BaseEntity {
 
 	
 	@Column(name = "firstName")
-	@NotEmpty(message = "invalid must not be empty")
+	@NotEmpty(message = "firstName must not be empty")
 	private String firstName ;
 
 	
 	@Column(name = "lastName")
-	@NotEmpty(message = "invalid must not be empty")
+	@NotEmpty(message = "lastName must not be empty")
 	private String lastName ;
 
 	

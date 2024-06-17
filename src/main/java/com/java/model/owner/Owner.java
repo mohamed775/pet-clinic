@@ -29,15 +29,15 @@ import lombok.Setter;
 public class Owner extends Person {
 
 	@Column(name = "address")
-    @NotEmpty
+	@NotEmpty(message = "address must not be empty")
     private String address;
 
     @Column(name = "city")
-    @NotEmpty
+	@NotEmpty(message = "city must not be empty")
     private String city;
     
     @Column(name = "telephone")
-    @NotEmpty
+	@NotEmpty(message = "telephone must not be empty")
     @Digits(fraction = 0, integer = 10)
     private String telephone;
 

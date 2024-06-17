@@ -44,19 +44,19 @@ public class OwnerController {
 	
 	
 	@GetMapping("/lastname/{lastName}")
-	public ResponseEntity<Collection<Owner>> getOwnerByLastName(@PathVariable @Valid String lastName){
+	public ResponseEntity<Collection<Owner>> getOwnerByLastName(@PathVariable  String lastName){
 		return  ResponseEntity.ok(ownerService.findByLastName(lastName));
 	}
 	
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping
-	public Owner addOwner( @RequestBody  Owner owner){
+	public Owner addOwner( @RequestBody @Valid Owner owner){
 		return  ownerService.addOwner(owner) ;
 	}
 	
 	@ResponseStatus(value = HttpStatus.ACCEPTED)
 	@PutMapping("/{id}")
-	public Owner updateOwner(@PathVariable Long id ,@RequestBody Owner owner){
+	public Owner updateOwner(@PathVariable Long id ,@RequestBody @Valid Owner owner){
 		return  ownerService.updateOwner(id , owner) ;
 	}
 	

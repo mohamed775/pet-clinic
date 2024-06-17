@@ -42,9 +42,9 @@ public class GlobelExceptionHandler extends ResponseEntityExceptionHandler {
 
 		List<String> errors = new ArrayList<String>();
 		
-		for(FieldError error : ex.getBindingResult().getFieldErrors()) {
-			errors.add(error.getDefaultMessage());
-		}
+//		for(FieldError error : ex.getBindingResult().getFieldErrors()) {
+//			errors.add(error.getDefaultMessage());
+//		}
 		
 		for(ObjectError error : ex.getBindingResult().getFieldErrors()) {
 			errors.add(error.getDefaultMessage());

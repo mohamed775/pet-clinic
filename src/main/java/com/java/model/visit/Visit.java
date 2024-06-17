@@ -27,7 +27,7 @@ public class Visit extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date = LocalDate.now();
 
-    @NotEmpty
+	@NotEmpty(message = "description must not be empty")
     @Column(name = "description")
     private String description;
 
